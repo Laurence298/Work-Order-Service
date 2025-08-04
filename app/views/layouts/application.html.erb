@@ -23,6 +23,13 @@
   </head>
 
   <body>
-    <%= yield %>
+ 
+    <% if authenticated? %>
+      <%= render "shared/sidebar" %>
+    <% end %>
+
+    <main class="container mx-auto mt-28 px-5 flex">
+      <%= yield %>
+    </main>
   </body>
 </html>

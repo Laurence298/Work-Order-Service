@@ -13,8 +13,8 @@ class ServicesController < ApplicationController
   def edit
   end
   def update
-    if @product.update(product_params)
-      redirect_to @product
+    if @service.update(service_params)
+      redirect_to @service
     else
       render :edit, status: :unprocessable_entity
     end

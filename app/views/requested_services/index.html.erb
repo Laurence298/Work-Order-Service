@@ -1,19 +1,58 @@
-<h1>Requested Services</h1>
+<section>
+  <section class="flex w-full">
+    <div role="tablist" class="tabs tabs-border">
+      <%= link_to 'all', requested_services_path(tab: 'all'), class: "tab #{'tab-active' if @tab == 'all'}", role: "tab" %>
+      <%= link_to 'Confirmed Services', requested_services_path(tab: 'confirmed'), class: "tab #{'tab-active' if @tab == 'confirmed'}", role: "tab" %>
+      <%= link_to 'Pending Services', requested_services_path(tab: 'pending'), class: "tab #{'tab-active' if @tab == 'pending'}", role: "tab" %>
+    </div>
+  <div class="divider divider-horizontal"></div>
 
-<% if @requested_services.any? %>
-  <ul>
-    <% @requested_services.each do |requested_service| %>
-      <li>
-        <strong>Requested By:</strong> <%= requested_service.customer.name %><br>
-        <strong>Status:</strong> <%= requested_service.status %><br>
-        <strong>Service:</strong> <%= requested_service.service.name if requested_service.service %><br>
-        <%= link_to "Show", requested_service_path(requested_service) %>
-      </li>
+    <%=  link_to "New Service Request", new_requested_service_path, class:"btn btn-soft btn-primary" %>
+  </section >
+  <div class="overflow-x-auto">
+    <% if @requested_services.any? %>
+      <table class="table table-zebra">
+        <thead>
+          <tr>
+            <th>
+              <label>
+                <input type="checkbox" class="checkbox" />
+              </label>
+            </th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Service</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Date</th>
+
+            <th>Update</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @requested_services.each do |requested_service| %>
+            <tr>
+              <th>
+                <label>
+                  <input type="checkbox" class="checkbox" />
+                </label>
+              </th>
+              <td><%= requested_service.customer.name %></td>
+              <td><input type="checkbox" checked="checked" class="toggle toggle-success" /></td>
+              <td><%= requested_service.service.name %></td>
+              <td><%= requested_service.customer.email %></td>
+              <td><%= requested_service.customer.phone_number %></td>
+              <td><%= requested_service.requested_at %></td>
+
+              <td>
+                <%= link_to "Update", edit_requested_service_path(requested_service), class: "text-blue-600 hover:underline" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p>No requested services found.</p>
     <% end %>
-  </ul>
-<% else %>
-  <p>No requested services found.</p>
-<% end %>
-
-<%= link_to "New Service Request", new_requested_service_path %>
-<%= link_to "Back to Home", root_path %>
+  </div>
+</section>

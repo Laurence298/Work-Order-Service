@@ -1,15 +1,13 @@
-<h1>Service#index</h1>
+<div>
+  <% if @services.any? %>
+    <ul class="space-y-4">
+      <%= render ServiceComponent.with_collection(@services) %>
+    </ul>
+  <% else %>
+    <p class="text-gray-500 italic">No services found.</p>
+  <% end %>
 
-
-
-<p>Listing all services:</p>
-
-<% if @services.any? %>
-  <ul>
-    <%= render ServiceComponent.with_collection(@services) %>
-  </ul>
-<% else %>
-  <p>No services found.</p>
-<% end %>
-<%= link_to "New Service", new_service_path %>
-<%= link_to "Back to Home", root_path %>
+  <div class="mt-6 space-x-4">
+    <%= link_to "New Service", new_service_path, class: "inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition" %>
+  </div>
+</div>
