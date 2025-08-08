@@ -1,8 +1,9 @@
 class RequestedServicesController < ApplicationController
-    before_action :set_product, only: %i[ show edit update ]
+    before_action :set_requested_service, only: %i[ show edit destroy update ]
+    before_action :redirect_if_no_company
 
   def index
-    @requested_services = RequestedService.all.includes(:customer, :service, :address)
+    @requested_services = current_user.company.requested_services.all.includes(:customer, :service, :address)
     @tab = params[:tab] || "all"
 
     if @tab == "confirmed"
@@ -14,15 +15,19 @@ class RequestedServicesController < ApplicationController
     end
   end
   def new
-    @requested_service = RequestedService.new
+    @requested_service = current_user.company.requested_services.new
     @requested_service.build_customer
     @requested_service.build_address
   end
 
   def show
-    @requested_service = RequestedService.find(params[:id])
   end
   def edit
+  end
+
+  def destroy
+    @requested_service.destroy
+    redirect_to requested_services_path
   end
 
   def update
@@ -34,7 +39,7 @@ class RequestedServicesController < ApplicationController
   end
 
   def create
-    @requested_service = RequestedService.new(requested_service_params)
+    @requested_service = current_user.company.requested_services.new(requested_service_params)
     @requested_service.requested_at ||= Time.current  # fallback to now if blank
 
     if @requested_service.save
@@ -45,8 +50,8 @@ class RequestedServicesController < ApplicationController
   end
 
   private
-    def set_product
-      @requested_service = RequestedService.find(params[:id])
+    def set_requested_service
+      @requested_service = current_user.company.requested_services.find(params[:id])
     end
 
   def requested_service_params

@@ -13,6 +13,7 @@ class ServiceComponent < ViewComponent::Base
           method: :delete,
           data: { turbo_confirm: "Are you sure?" },
           class: "text-sm  bg-red-500 hover:bg-red-600 px-3 py-1 rounded" %>
+        <%= link_to "show", service_path(@service), class: "text-sm  bg-red-500 hover:bg-red-600 px-3 py-1 rounded" %>
       </div>
     </li>
   ERB

@@ -1,6 +1,6 @@
 class Service < ApplicationRecord
-  has_many :requested_services
+  belongs_to :company
+  has_many :service_details, dependent: :destroy
+  has_many :requested_services, dependent: :destroy
   has_many :customers, through: :requested_services
-  has_many :service_prices
-
 end

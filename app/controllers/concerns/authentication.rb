@@ -3,16 +3,24 @@ module Authentication
 
   included do
     before_action :require_authentication
-    helper_method :authenticated?
+    helper_method :authenticated?, :current_user, :redirect_if_no_company
   end
 
   class_methods do
     def allow_unauthenticated_access(**options)
       skip_before_action :require_authentication, **options
     end
+    def unauthenticated_access_only(**options)
+      allow_unauthenticated_access **options
+      before_action -> { redirect_to root_path if authenticated? }, **options
+    end
   end
 
   private
+
+    def current_user
+      @current_user ||= User.find_by(id: session[:user_id])
+    end
     def authenticated?
       resume_session
     end
@@ -42,6 +50,12 @@ module Authentication
       user.sessions.create!(user_agent: request.user_agent, ip_address: request.remote_ip).tap do |session|
         Current.session = session
         cookies.signed.permanent[:session_id] = { value: session.id, httponly: true, same_site: :lax }
+      end
+    end
+    def redirect_if_no_company
+      # Only redirect if user is logged in AND user has no company
+      if current_user && current_user.company.nil?
+        redirect_to new_companies_path, alert: "Please register your company first."
       end
     end
 

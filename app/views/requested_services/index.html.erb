@@ -14,11 +14,7 @@
       <table class="table table-zebra">
         <thead>
           <tr>
-            <th>
-              <label>
-                <input type="checkbox" class="checkbox" />
-              </label>
-            </th>
+           
             <th>Name</th>
             <th>Status</th>
             <th>Service</th>
@@ -32,11 +28,7 @@
         <tbody>
           <% @requested_services.each do |requested_service| %>
             <tr>
-              <th>
-                <label>
-                  <input type="checkbox" class="checkbox" />
-                </label>
-              </th>
+              
               <td><%= requested_service.customer.name %></td>
               <td><input type="checkbox" checked="checked" class="toggle toggle-success" /></td>
               <td><%= requested_service.service.name %></td>
@@ -45,7 +37,7 @@
               <td><%= requested_service.requested_at %></td>
 
               <td>
-                <%= link_to "Update", edit_requested_service_path(requested_service), class: "text-blue-600 hover:underline" %>
+                <%= link_to "Update", requested_service, class: "text-blue-600 hover:underline" %>
               </td>
             </tr>
           <% end %>
