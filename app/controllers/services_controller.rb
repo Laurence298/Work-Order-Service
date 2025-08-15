@@ -2,14 +2,14 @@ class ServicesController < ApplicationController
   before_action :set_service, only: %i[ show edit update destroy ]
   before_action :redirect_if_no_company
   def index
-    @services = Service.all
+    @services = current_user.company.services.all
   end
+
   def show
-    @service_detail = @service.service_details.new
   end
 
   def new
-    @service = Service.new
+    @service = current_user.company.services.new
   end
   def edit
   end
@@ -21,7 +21,7 @@ class ServicesController < ApplicationController
     end
   end
   def create
-    @service = Service.new(service_params)
+    @service = current_user.company.services.new(service_params)
     @service.company = current_user.company
     if @service.save
       redirect_to services_path, notice: "Service was successfully created."
@@ -38,7 +38,7 @@ class ServicesController < ApplicationController
 
   private
   def set_service
-    @service = Service.find(params[:id])
+    @service = current_user.company.services.find(params[:id])
   end
 
   def service_params

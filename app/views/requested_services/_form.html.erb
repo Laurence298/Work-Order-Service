@@ -1,54 +1,94 @@
-<%= form_with model: @requested_service, class: "space-y-8 bg-white p-8 rounded-xl shadow-md" do |f| %>
-  <h3 class="text-xl font-semibold border-b pb-2">Customer Info</h3>
+<%= form_with model: @requested_service, class: "max-w-3xl mx-auto p-6 bg-white shadow-md rounded-lg space-y-6" do |f| %>
+
+  <h3 class="text-xl font-semibold mb-4 border-b pb-2">Customer Info</h3>
   <%= f.fields_for :customer do |c| %>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div>
-        <%= c.label :name, class: "block text-sm font-medium text-gray-700" %>
-        <%= c.text_field :name, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" %>
+        <%= c.label :first_name, class: "block text-sm font-medium text-gray-700" %>
+        <%= c.text_field :first_name, class: "input validator mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
       </div>
+
+      <div>
+        <%= c.label :last_name, class: "block text-sm font-medium text-gray-700" %>
+        <%= c.text_field :last_name, class: "input validator mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+      </div>
+
       <div>
         <%= c.label :email, class: "block text-sm font-medium text-gray-700" %>
-        <%= c.email_field :email, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" %>
+        <%= c.email_field :email, class: "input validator mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
       </div>
-      <div class="md:col-span-2">
+
+      <div>
         <%= c.label :phone_number, class: "block text-sm font-medium text-gray-700" %>
-        <%= c.telephone_field :phone_number, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" %>
+        <%= c.telephone_field :phone_number, class: "input validator mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+      </div>
+    </div>
+
+    <%= c.fields_for :address do |a| %>
+      <h4 class="text-lg font-semibold mt-6 mb-2 border-b pb-1">Address</h4>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <%= a.label :street, class: "block text-sm font-medium text-gray-700" %>
+          <%= a.text_field :street, class: "input validator mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+        </div>
+        <div>
+          <%= a.label :city, class: "block text-sm font-medium text-gray-700" %>
+          <%= a.text_field :city, class: "input validator mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+        </div>
+        <div>
+          <%= a.label :province, class: "block text-sm font-medium text-gray-700" %>
+          <%= a.text_field :province, class: "input validator mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+        </div>
+        <div>
+          <%= a.label :postal_code, class: "block text-sm font-medium text-gray-700" %>
+          <%= a.text_field :postal_code, class: "input validator mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+        </div>
+        <div>
+          <%= a.label :country, class: "block text-sm font-medium text-gray-700" %>
+          <%= a.text_field :country, class: "input validator mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+
+  <h3 class="text-xl font-semibold mt-6 mb-4 border-b pb-2">Service Info</h3>
+  <div class="mb-4">
+    <%= f.label :service_id, "Select Service", class: "block text-sm font-medium text-gray-700" %>
+    <%= f.collection_select :service_id, current_user.company.services, :id, :name, {}, { class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" } %>
+  </div>
+
+  <h3 class="text-xl font-semibold mt-6 mb-4 border-b pb-2">Service Details</h3>
+  <%= f.fields_for :service_detail do |sd| %>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <%= sd.label :service_plan, class: "block text-sm font-medium text-gray-700" %>
+        <%= sd.text_field :service_plan, class: "input validator mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+      </div>
+      <div>
+        <%= sd.label :description, class: "block text-sm font-medium text-gray-700" %>
+        <%= sd.text_field :description, class: "textarea mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+      </div>
+      <div>
+        <%= sd.label :price, class: "block text-sm font-medium text-gray-700" %>
+        <%= sd.text_field :price, class: "input validator mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
       </div>
     </div>
   <% end %>
 
-  <div>
-    <%= f.label :service_id, "Select a Service", class: "block text-sm font-medium text-gray-700" %>
-    <%= f.collection_select :service_id, Service.all, :id, :name, { prompt: "Select a Service" }, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" %>
-  </div>
-
-  <h3 class="text-xl font-semibold border-b pb-2">Address Info</h3>
-  <%= f.fields_for :address do |a| %>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div>
-        <%= a.label :street, class: "block text-sm font-medium text-gray-700" %>
-        <%= a.text_field :street, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" %>
-      </div>
-      <div>
-        <%= a.label :city, class: "block text-sm font-medium text-gray-700" %>
-        <%= a.text_field :city, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" %>
-      </div>
-      <div>
-        <%= a.label :province, class: "block text-sm font-medium text-gray-700" %>
-        <%= a.text_field :province, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" %>
-      </div>
-      <div>
-        <%= a.label :postal_code, class: "block text-sm font-medium text-gray-700" %>
-        <%= a.text_field :postal_code, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" %>
-      </div>
-      <div class="md:col-span-2">
-        <%= a.label :country, class: "block text-sm font-medium text-gray-700" %>
-        <%= a.text_field :country, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" %>
-      </div>
+  <div class="flex items-center mt-4">
+    <div>
+      <%= f.label :requested_at, class: "block text-sm font-medium text-gray-700" %>
+      <%= f.date_field  :requested_at %>
     </div>
-  <% end %>
 
-  <div>
-    <%= f.submit "submit  ", class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+    <div>
+      <%= f.label :is_confirmed, "Confirm Service", class: "ml-2 block text-sm text-gray-700" %>
+      <%= f.check_box :is_confirmed, class: "h-4 w-4 text-indigo-600 border-gray-300 rounded" %>
+    </div>
   </div>
+
+  <div class="mt-6">
+    <%= f.submit "Submit", class: "w-full py-2 px-4 bg-indigo-600 text-white font-semibold rounded-md shadow hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+  </div>
+
 <% end %>

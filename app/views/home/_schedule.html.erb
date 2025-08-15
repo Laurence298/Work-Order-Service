@@ -1,0 +1,34 @@
+<section class="p-4">
+    <h2 class="text-2xl font-bold mb-4">Confirmed Schedule</h2>
+    <ul class="list bg-base-100 rounded-box shadow-md">
+        <% if  confimed_schedule.any?%>
+            <div class="overflow-x-auto">
+                <table class="table">
+                    <!-- head -->
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th>Service</th>
+                        <th>Is Completed</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <% confimed_schedule.each do |sr|%>
+                            <tr>
+                                <td><%= [sr.customer&.first_name, sr.customer&.last_name].compact.join(" ") %> </td>
+                                <td><%= sr.customer.address.street%></td>
+                                <td><%= sr.service.name if sr.service %></td>
+                                <td>Blue</td>
+                            </tr>
+                        <% end %>
+                    </tbody>
+                </table>
+            </div>
+        <% else %>
+            <li class="p-4 text-center">No confirmed schedules found.</li>
+        <% end %>
+
+
+    </ul>
+</section>

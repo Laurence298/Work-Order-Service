@@ -10,7 +10,7 @@
     <%=  link_to "New Service Request", new_requested_service_path, class:"btn btn-soft btn-primary" %>
   </section >
   <div class="overflow-x-auto">
-    <% if @requested_services.any? %>
+   
       <table class="table table-zebra">
         <thead>
           <tr>
@@ -25,26 +25,29 @@
             <th>Update</th>
           </tr>
         </thead>
+       <% if @requested_services.any? %>
         <tbody>
-          <% @requested_services.each do |requested_service| %>
+          <% @requested_services.each do |rs| %>
             <tr>
-              
-              <td><%= requested_service.customer.name %></td>
-              <td><input type="checkbox" checked="checked" class="toggle toggle-success" /></td>
-              <td><%= requested_service.service.name %></td>
-              <td><%= requested_service.customer.email %></td>
-              <td><%= requested_service.customer.phone_number %></td>
-              <td><%= requested_service.requested_at %></td>
-
+              <td><%= rs.customer.first_name%></td>
+              <td><%= rs.is_confirmed ? "Confirmed" : "Pending" %></td>
+              <td><%= rs.service.name if rs.service %></td>
+              <td><%= rs.customer.email %></td>
+              <td><%= rs.customer.phone_number %></td>
+              <td><%= rs.requested_at.strftime("%Y-%m-%d") if rs.requested_at %></td>
               <td>
-                <%= link_to "Update", requested_service, class: "text-blue-600 hover:underline" %>
+                <%= link_to 'Edit', edit_requested_service_path(rs), class: "btn btn-sm btn-secondary" %>
               </td>
             </tr>
+
           <% end %>
+           <% else %>
+            <tr>
+              <td colspan="7" class="text-center py-4">No requested services found.</td>
+            </tr>
+    <% end %>
         </tbody>
       </table>
-    <% else %>
-      <p>No requested services found.</p>
-    <% end %>
+   
   </div>
 </section>

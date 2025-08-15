@@ -22,14 +22,20 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body >
  
-    <% if authenticated? %>
-      <%= render "shared/sidebar" %>
-    <% end %>
+    
 
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
+    <main class="grid grid-cols-[300px_1fr] mx-auto mt-28">
+      <div >
+        <% if authenticated? %>
+          <%= render "shared/sidebar" %>
+        <% end %>
+      </div>
+      <div class="">
+        <%= yield %>
+      </div>
     </main>
+
   </body>
 </html>

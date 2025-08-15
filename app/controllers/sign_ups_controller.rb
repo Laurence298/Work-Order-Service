@@ -8,7 +8,7 @@ class SignUpsController < ApplicationController
   def create
     @user = User.new(sign_up_params)
     if @user.save
-      redirect_to session_path, method: :delete
+      redirect_to new_session_path, method: :delete
     else
       render :show, status: :unprocessable_entity
     end

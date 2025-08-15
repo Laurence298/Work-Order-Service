@@ -6,7 +6,7 @@ class CompaniesController  < ApplicationController
     @company = Company.new
   end
   def show
-    @company = Company.find(params[:id])
+    @company = current_user.company.find(params[:id])
   end
 
   def create

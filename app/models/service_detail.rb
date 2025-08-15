@@ -1,5 +1,4 @@
 class ServiceDetail < ApplicationRecord
   belongs_to :service
-
-  validates :service_plan, :features, :price, presence: true
+  belongs_to :requested_service, optional: true  # optional if you want to link it later
 end

@@ -1,1 +1,12 @@
-<div>Add Service template here</div>
+<div class=" rounded-xl border  p-4  transition">
+    <h2 class="text-lg font-semibold text-gray-800"><%= @service.name %></h2>
+    <p class="mt-1 text-gray-700"><%= @service.description.presence || "No description provided." %></p>
+
+    <div class="mt-4 flex gap-2">
+
+        <%= button_to "delete", @service,
+          method: :delete,
+          data: { turbo_confirm: "Are you sure?" },
+          class:"btn btn-accent" %>
+    </div>
+</div>
