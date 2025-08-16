@@ -12,6 +12,10 @@ Rails.application.routes.draw do
   resources :services do
    resources :service_details, only: [ :new, :create ]
   end
-  resources :requested_services
+  resources :requested_services do
+    member do
+      patch :complete_task
+    end
+  end
   resources :addresses
 end

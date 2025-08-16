@@ -73,4 +73,11 @@ class RequestedServicesController < ApplicationController
       service_detail_attributes: [ :id, :service_plan, :description, :price  ]
     )
   end
+  def complete_task
+    if @requested_service.update(is_completed: true)
+      redirect_to @requested_service, notice: "Service marked as completed."
+    else
+      redirect_to @requested_service, alert: "Could not complete the service."
+    end
+  end
 end

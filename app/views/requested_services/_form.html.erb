@@ -86,8 +86,12 @@
       <%= f.check_box :is_confirmed, class: "h-4 w-4 text-indigo-600 border-gray-300 rounded" %>
       <%= f.label :is_confirmed, "Confirm Service", class: "ml-2 block text-sm text-gray-700" %>
     </div>
+     
   </div>
-
+<div class="flex items-center">
+      <%= f.check_box :is_completed, class: "h-4 w-4 text-indigo-600 border-gray-300 rounded" %>
+      <%= f.label :is_completed, "service Completed", class: "ml-2 block text-sm text-gray-700" %>
+    </div>
   <div class="mt-6">
     <%= f.submit "Submit", class: "w-full py-2 px-4 bg-indigo-600 text-white font-semibold rounded-md shadow hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
   </div>
