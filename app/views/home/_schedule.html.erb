@@ -4,9 +4,9 @@
         <% if  confimed_schedule.any?%>
             <div class="overflow-x-auto">
                 <table class="table">
-                    <!-- head -->
                     <thead>
                     <tr>
+                        <th> Date</th>
                         <th>Name</th>
                         <th>Location</th>
                         <th>Service</th>
@@ -15,11 +15,23 @@
                     </thead>
                     <tbody>
                         <% confimed_schedule.each do |sr|%>
-                            <tr>
-                                <td><%= [sr.customer&.first_name, sr.customer&.last_name].compact.join(" ") %> </td>
-                                <td><%= sr.customer.address.street%></td>
-                                <td><%= sr.service.name if sr.service %></td>
-                                <td>Blue</td>
+                            <tr style="cursor:pointer">
+                                <td>
+                                    <%= sr.requested_at.strftime("%Y-%m-%d") if sr.requested_at %>
+                                </td>
+                                <td>
+                                    <%= link_to sr.customer.first_name, requested_service_path(sr) %>
+                                </td>
+                                <td>
+                                    <%= link_to sr.customer.address.street, requested_service_path(sr) %>
+                                </td>
+                                <td>
+                                    <%= link_to sr.service.name, requested_service_path(sr) %>
+                                </td>
+
+                                <td>
+                                     <%= sr.is_completed ? "Completed": "Inprogress" %>
+                                </td>
                             </tr>
                         <% end %>
                     </tbody>

@@ -22,7 +22,7 @@
             <th>Phone</th>
             <th>Date</th>
 
-            <th>Update</th>
+            <th>View</th>
           </tr>
         </thead>
        <% if @requested_services.any? %>
@@ -36,7 +36,7 @@
               <td><%= rs.customer.phone_number %></td>
               <td><%= rs.requested_at.strftime("%Y-%m-%d") if rs.requested_at %></td>
               <td>
-                <%= link_to 'Edit', edit_requested_service_path(rs), class: "btn btn-sm btn-secondary" %>
+                <%= link_to 'Open', requested_service_path(rs), class: "btn btn-sm btn-secondary" %>
               </td>
             </tr>
 

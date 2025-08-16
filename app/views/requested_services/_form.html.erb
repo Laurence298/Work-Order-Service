@@ -75,15 +75,16 @@
     </div>
   <% end %>
 
-  <div class="flex items-center mt-4">
-    <div>
+ <!-- Requested At & Confirm -->
+  <div class="flex flex-col md:flex-row md:items-center gap-6 mt-6">
+    <div class="flex-1">
       <%= f.label :requested_at, class: "block text-sm font-medium text-gray-700" %>
-      <%= f.date_field  :requested_at %>
+      <%= f.date_field :requested_at, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
     </div>
 
-    <div>
-      <%= f.label :is_confirmed, "Confirm Service", class: "ml-2 block text-sm text-gray-700" %>
+    <div class="flex items-center">
       <%= f.check_box :is_confirmed, class: "h-4 w-4 text-indigo-600 border-gray-300 rounded" %>
+      <%= f.label :is_confirmed, "Confirm Service", class: "ml-2 block text-sm text-gray-700" %>
     </div>
   </div>
 

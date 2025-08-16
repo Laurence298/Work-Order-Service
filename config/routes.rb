@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   resource :companies
   resources :customers
+
+
   resources :services do
    resources :service_details, only: [ :new, :create ]
   end

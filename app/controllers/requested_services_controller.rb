@@ -32,6 +32,10 @@ class RequestedServicesController < ApplicationController
   end
 
   def update
+    if @requested_service.service_detail
+    @requested_service.service_detail.service_id ||= @requested_service.service_id
+    end
+
     if @requested_service.update(requested_service_params)
       redirect_to requested_services_path
     else
@@ -63,10 +67,10 @@ class RequestedServicesController < ApplicationController
     params.require(:requested_service).permit(
       :requested_at, :is_confirmed, :is_completed, :service_id,
       customer_attributes: [
-        :first_name, :last_name, :email, :phone_number,
+        :id, :first_name, :last_name, :email, :phone_number,
         address_attributes: [ :street, :city, :province, :postal_code, :country ]
       ],
-      service_detail_attributes: [ :service_plan, :description, :price ]
+      service_detail_attributes: [ :id, :service_plan, :description, :price  ]
     )
   end
 end

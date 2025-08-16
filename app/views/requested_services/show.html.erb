@@ -1,6 +1,54 @@
-<div>
-<%= render "form", requested_service: @requested_service %>
-  <div class="flex gap-2 mt-4 mx-2">
-    <%= button_to "Delete", @requested_service, method: :delete, data: { turbo_confirm: "Are you sure?" },class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+<div class="max-w-4xl mx-auto p-6 bg-white shadow rounded-lg mt-6">
+  <h1 class="text-2xl font-bold mb-4 text-gray-800">Requested Service Details</h1>
+
+  <!-- Request Info -->
+  <div class="mb-6">
+    <h2 class="text-xl font-semibold text-gray-700 mb-2 border-b pb-1">Request Info</h2>
+    <p><span class="font-medium text-gray-600">Requested At:</span> <%= @requested_service.requested_at %></p>
+    <p><span class="font-medium text-gray-600">Confirmed:</span> <%= @requested_service.is_confirmed ? 'Yes' : 'No' %></p>
+    <p><span class="font-medium text-gray-600">Completed:</span> <%= @requested_service.is_completed ? 'Yes' : 'No' %></p>
+    <p><span class="font-medium text-gray-600">Service:</span> <%= @requested_service.service&.name %></p>
   </div>
+
+  <!-- Customer Info -->
+  <% if @requested_service.customer %>
+    <div class="mb-6">
+      <h2 class="text-xl font-semibold text-gray-700 mb-2 border-b pb-1">Customer Info</h2>
+      <p><span class="font-medium text-gray-600">Name:</span> <%= @requested_service.customer.first_name %> <%= @requested_service.customer.last_name %></p>
+      <p><span class="font-medium text-gray-600">Email:</span> <%= @requested_service.customer.email %></p>
+      <p><span class="font-medium text-gray-600">Phone:</span> <%= @requested_service.customer.phone_number %></p>
+
+      <% if @requested_service.customer.address %>
+        <div class="mt-4 pl-4 border-l border-gray-300">
+          <h3 class="text-lg font-medium text-gray-700 mb-1">Address</h3>
+          <p><span class="font-medium text-gray-600">Street:</span> <%= @requested_service.customer.address.street %></p>
+          <p><span class="font-medium text-gray-600">City:</span> <%= @requested_service.customer.address.city %></p>
+          <p><span class="font-medium text-gray-600">Province:</span> <%= @requested_service.customer.address.province %></p>
+          <p><span class="font-medium text-gray-600">Postal Code:</span> <%= @requested_service.customer.address.postal_code %></p>
+          <p><span class="font-medium text-gray-600">Country:</span> <%= @requested_service.customer.address.country %></p>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <!-- Service Details -->
+  <% if @requested_service.service_detail %>
+    <div class="mb-6">
+      <h2 class="text-xl font-semibold text-gray-700 mb-2 border-b pb-1">Service Details</h2>
+      <p><span class="font-medium text-gray-600">Plan:</span> <%= @requested_service.service_detail.service_plan %></p>
+      <p><span class="font-medium text-gray-600">Description:</span> <%= @requested_service.service_detail.description %></p>
+      <p><span class="font-medium text-gray-600">Price:</span> $<%= @requested_service.service_detail.price %></p>
+    </div>
+  <% end %>
+
+  <!-- Actions -->
+  <div class="flex gap-2 mt-4">
+    <%= link_to "Edit", edit_requested_service_path(@requested_service), class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+    <%= button_to "Delete", @requested_service, method: :delete, data: { turbo_confirm: "Are you sure?" },  class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+    <%= link_to "To Schedule", root_path, class:"inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+
+    <%= link_to "To Request", requested_services_path, class:"inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+  </div>
+
+
 </div>
