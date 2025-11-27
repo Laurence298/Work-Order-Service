@@ -17,8 +17,22 @@ class RequestedServicesController < ApplicationController
   def new
     @requested_service = current_user.company.requested_services.new
     @requested_service.build_customer
-    @requested_service.customer.build_address
+    @requested_service.customer.build_address(
+      city: current_user.company.city,
+      province: current_user.company.province,
+      country: current_user.company.country
+    )
     @requested_service.build_service_detail
+  end
+
+  def service_tiers
+    service_id = params[:service_id] || params.dig(:requested_service, :service_id)
+    @service = current_user.company.services.find_by(id: service_id)
+    @tiers = @service ? @service.service_tiers : []
+    respond_to do |format|
+      format.turbo_stream
+      format.html { render layout: false }
+    end
   end
 
   def show
@@ -46,7 +60,20 @@ class RequestedServicesController < ApplicationController
   def create
     @requested_service = current_user.company.requested_services.new(requested_service_params)
     @requested_service.customer.company = current_user.company
-    @requested_service.service_detail.service_id = @requested_service.service.id if @requested_service.service_detail
+    
+    # Handle Tier Selection
+    if requested_service_params[:service_tier_id].present?
+      @requested_service.service_tier_id = requested_service_params[:service_tier_id]
+    end
+    
+    # If no tier selected, or if user wants to override, we might have service_detail attributes.
+    # But for now, let's rely on the model helpers to fall back.
+    # If service_detail is built but empty, we might want to discard it?
+    # The form sends service_detail_attributes.
+    
+    if @requested_service.service_detail
+       @requested_service.service_detail.service_id = @requested_service.service.id
+    end
 
 
     if @requested_service.save
@@ -65,7 +92,8 @@ class RequestedServicesController < ApplicationController
 
   def requested_service_params
     params.require(:requested_service).permit(
-      :requested_at, :is_confirmed, :is_completed, :service_id,
+      :requested_at, :is_confirmed, :is_completed, :service_id, :required_employees_count, :service_tier_id,
+      employee_ids: [],
       customer_attributes: [
         :id, :first_name, :last_name, :email, :phone_number,
         address_attributes: [ :street, :city, :province, :postal_code, :country ]

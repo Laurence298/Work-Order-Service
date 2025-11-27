@@ -1,5 +1,5 @@
-<section>
-  <section class="flex w-full">
+<div class="container mx-auto p-6">
+  <section class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
     <div role="tablist" class="tabs tabs-border">
       <%= link_to 'all', requested_services_path(tab: 'all'), class: "tab #{'tab-active' if @tab == 'all'}", role: "tab" %>
       <%= link_to 'Confirmed Services', requested_services_path(tab: 'confirmed'), class: "tab #{'tab-active' if @tab == 'confirmed'}", role: "tab" %>
@@ -50,4 +50,5 @@
       </table>
    
   </div>
-</section>
+  </div>
+</div>

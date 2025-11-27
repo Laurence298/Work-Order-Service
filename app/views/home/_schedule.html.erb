@@ -10,6 +10,7 @@
                         <th>Name</th>
                         <th>Location</th>
                         <th>Service</th>
+                        <th>Employees</th>
                         <th>Is Completed</th>
                     </tr>
                     </thead>
@@ -27,6 +28,17 @@
                                 </td>
                                 <td>
                                     <%= link_to sr.service.name, requested_service_path(sr) %>
+                                </td>
+                                <td>
+                                    <% if sr.employees.any? %>
+                                        <div class="flex flex-wrap gap-1">
+                                            <% sr.employees.each do |emp| %>
+                                                <span class="badge badge-sm badge-ghost"><%= emp.first_name %></span>
+                                            <% end %>
+                                        </div>
+                                    <% else %>
+                                        <span class="text-xs text-gray-400 italic">Unassigned</span>
+                                    <% end %>
                                 </td>
 
                                 <td>

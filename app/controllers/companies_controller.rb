@@ -19,9 +19,22 @@ class CompaniesController  < ApplicationController
     end
   end
 
+  def edit
+    @company = current_user.company
+  end
+
+  def update
+    @company = current_user.company
+    if @company.update(company_params)
+      redirect_to root_path, notice: "Company settings updated successfully!"
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   private
 
     def company_params
-    params.require(:company).permit(:company_name)
+    params.require(:company).permit(:company_name, :city, :province, :country)
     end
 end

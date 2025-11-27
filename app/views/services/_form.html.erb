@@ -1,0 +1,35 @@
+<%= form_with model: service, class: "space-y-6 max-w-md" do |form| %>
+  <div>
+    <%= form.label :name, class: "block mb-1 font-semibold text-gray-800" %>
+    <%= form.text_field :name, class:"input validator" %>
+  </div>
+
+  <div>
+    <%= form.label :description, class: "block mb-1 font-semibold text-gray-800" %>
+    <%= form.text_area :description, rows: 4, class:"textarea" %>
+  </div>
+
+  <div class="border-t pt-4 mt-4">
+    <div class="flex justify-between items-center mb-4">
+      <div>
+        <h3 class="text-lg font-semibold">Service Tiers</h3>
+        <p class="text-sm text-gray-600">Define pricing tiers for this service (e.g., Basic, Premium).</p>
+      </div>
+      <%= link_to add_tier_services_path, data: { turbo_stream: true }, class: "btn btn-outline btn-primary btn-sm gap-2" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+        Add Tier
+      <% end %>
+    </div>
+    
+    <div id="service-tiers-container">
+      <%= form.fields_for :service_tiers do |tier_form| %>
+        <%= render "service_tier_fields", form: tier_form %>
+      <% end %>
+    </div>
+  </div>
+  </div>
+
+  <div>
+    <%= form.submit class:"btn btn-primary" %>
+  </div>
+<% end %>

@@ -1,0 +1,12 @@
+<%= turbo_frame_tag "service_tiers_frame" do %>
+  <div class="mb-4">
+    <%= label_tag "requested_service[service_tier_id]", "Select Tier (Optional - Overrides Manual Details)", class: "block text-sm font-medium text-gray-700" %>
+    <% if @tiers.any? %>
+      <%= collection_select :requested_service, :service_tier_id, @tiers, :id, :service_plan, { include_blank: "None (Enter Manually)" }, { class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" } %>
+    <% else %>
+      <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" disabled>
+        <option>No tiers available for this service</option>
+      </select>
+    <% end %>
+  </div>
+<% end %>

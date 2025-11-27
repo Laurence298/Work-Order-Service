@@ -10,7 +10,15 @@ class ServicesController < ApplicationController
 
   def new
     @service = current_user.company.services.new
+    @service.service_tiers.build(service_plan: "Basic")
   end
+
+  def add_tier
+    respond_to do |format|
+      format.turbo_stream
+    end
+  end
+
   def edit
   end
   def update
@@ -42,6 +50,6 @@ class ServicesController < ApplicationController
   end
 
   def service_params
-    params.require(:service).permit(:name, :description)
+    params.require(:service).permit(:name, :description, service_tiers_attributes: [:id, :service_plan, :description, :price, :_destroy])
   end
 end

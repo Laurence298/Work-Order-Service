@@ -26,16 +26,19 @@
  
     
 
-    <main class="grid grid-cols-[300px_1fr] mx-auto mt-28">
-      <div >
-        <% if authenticated? %>
+    <div class="flex min-h-screen bg-base-100">
+      <% if current_user&.company.present? %>
+        <aside class="flex-none">
           <%= render "shared/sidebar" %>
-        <% end %>
-      </div>
-      <div class="">
-        <%= yield %>
-      </div>
-    </main>
+        </aside>
+      <% end %>
+
+      <main class="flex-1 min-w-0">
+        <div class="w-full p-4 lg:p-8">
+           <%= yield %>
+        </div>
+      </main>
+    </div>
 
   </body>
 </html>

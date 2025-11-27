@@ -7,7 +7,16 @@ Rails.application.routes.draw do
 
   resource :companies
   resources :customers
-  resources :services
-  resources :requested_services 
+  resources :services do
+    collection do
+      get :add_tier
+    end
+  end
+  resources :employees
+  resources :requested_services do
+    collection do
+      get :service_tiers
+    end
+  end 
   resources :addresses
 end

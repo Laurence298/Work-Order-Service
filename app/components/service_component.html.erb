@@ -1,12 +1,25 @@
-<div class=" rounded-xl border  p-4  transition">
-    <h2 class="text-lg font-semibold text-gray-800"><%= @service.name %></h2>
-    <p class="mt-1 text-gray-700"><%= @service.description.presence || "No description provided." %></p>
-
-    <div class="mt-4 flex gap-2">
-
-        <%= button_to "delete", @service,
+<div class="card bg-base-100 shadow-xl border border-base-200">
+  <div class="card-body">
+    <h2 class="card-title"><%= @service.name %></h2>
+    <p class="mb-2"><%= @service.description.presence || "No description provided." %></p>
+    
+    <% if @service.service_tiers.any? %>
+      <div class="mt-2 space-y-1">
+        <h3 class="text-sm font-semibold text-gray-600">Tiers:</h3>
+        <% @service.service_tiers.each do |tier| %>
+          <div class="badge badge-outline gap-2">
+            <%= tier.service_plan %>
+            <span class="font-bold">$<%= tier.price %></span>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+    <div class="card-actions justify-end mt-4">
+      <%= link_to "Edit", edit_service_path(@service), class: "btn btn-sm btn-ghost" %>
+      <%= button_to "Delete", @service,
           method: :delete,
           data: { turbo_confirm: "Are you sure?" },
-          class:"btn btn-accent" %>
+          class:"btn btn-error btn-sm" %>
     </div>
+  </div>
 </div>

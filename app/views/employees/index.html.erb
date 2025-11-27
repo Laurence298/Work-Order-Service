@@ -1,0 +1,35 @@
+<div class="container mx-auto">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-bold">Employees</h1>
+    <%= link_to "New Employee", new_employee_path, class: "btn btn-primary" %>
+  </div>
+
+  <div class="overflow-x-auto">
+    <table class="table table-zebra">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @employees.each do |employee| %>
+          <tr>
+            <td><%= employee.full_name %></td>
+            <td><%= employee.phone_number %></td>
+            <td><%= employee.email %></td>
+            <td>
+              <%= link_to "Edit", edit_employee_path(employee), class: "btn btn-sm btn-ghost" %>
+              <%= button_to "Delete", employee_path(employee), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-sm btn-ghost text-error" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <% if @employees.empty? %>
+      <div class="text-center py-10 text-gray-500 italic">No employees found.</div>
+    <% end %>
+  </div>
+</div>

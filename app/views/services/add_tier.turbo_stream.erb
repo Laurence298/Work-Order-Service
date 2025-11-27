@@ -1,0 +1,5 @@
+<%= turbo_stream.append "service-tiers-container" do %>
+  <%= fields_for "service[service_tiers_attributes][#{Time.now.to_i}]", ServiceDetail.new do |tier_form| %>
+    <%= render "service_tier_fields", form: tier_form %>
+  <% end %>
+<% end %>

@@ -1,0 +1,39 @@
+<div class="container mx-auto max-w-lg">
+  <h1 class="text-3xl font-bold mb-6"><%= @employee.new_record? ? "New Employee" : "Edit Employee" %></h1>
+
+  <%= form_with(model: @employee, class: "space-y-4") do |form| %>
+    <% if @employee.errors.any? %>
+      <div class="alert alert-error">
+        <ul>
+          <% @employee.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-control">
+      <%= form.label :first_name, class: "label" %>
+      <%= form.text_field :first_name, class: "input input-bordered" %>
+    </div>
+
+    <div class="form-control">
+      <%= form.label :last_name, class: "label" %>
+      <%= form.text_field :last_name, class: "input input-bordered" %>
+    </div>
+
+    <div class="form-control">
+      <%= form.label :phone_number, class: "label" %>
+      <%= form.text_field :phone_number, class: "input input-bordered" %>
+    </div>
+
+    <div class="form-control">
+      <%= form.label :email, class: "label" %>
+      <%= form.email_field :email, class: "input input-bordered" %>
+    </div>
+
+    <div class="mt-6">
+      <%= form.submit class: "btn btn-primary w-full" %>
+    </div>
+  <% end %>
+</div>

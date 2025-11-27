@@ -1,4 +1,5 @@
 # Pin npm packages by running ./bin/importmap
+# Force reload
 
 pin "application"
 pin "@hotwired/turbo-rails", to: "turbo.min.js"
