@@ -2,7 +2,7 @@
 
 A multi-tenant Field Service Management (FSM) platform for managing service requests, employees, and customers.
 
-## � Project Overview
+##  Project Overview
 
 This application was originally built to streamline operations for a landscaping business, helping them transition from manual tracking to a digital system. It serves as a comprehensive tool for any service-based company that needs to manage:
 
@@ -10,7 +10,7 @@ This application was originally built to streamline operations for a landscaping
 *   **Workforce Scheduling**: Assigning crews to specific jobs and tracking their availability.
 *   **Customer Requests**: Managing the lifecycle of a work order from initial request to final completion.
 
-## �🚀 Quick Start
+## 🚀 Quick Start
 
 **This project runs exclusively with Docker.**
 
