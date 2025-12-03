@@ -65,8 +65,8 @@
 
     <%= turbo_frame_tag "service_tiers_frame" do %>
       <div class="mb-4">
-        <%= f.label :service_tier_id, "Select Tier (Optional - Overrides Manual Details)", class: "block text-sm font-medium text-gray-700" %>
-        <%= f.grouped_collection_select :service_tier_id, current_user.company.services, :service_tiers, :name, :id, :service_plan, { include_blank: "None (Enter Manually)" }, { class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" } %>
+        <%= f.label :service_tier_id, "Select Tier", class: "block text-sm font-medium text-gray-700" %>
+        <%= f.grouped_collection_select :service_tier_id, current_user.company.services, :service_tiers, :name, :id, :service_plan, { include_blank: "None" }, { class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" } %>
       </div>
     <% end %>
   </div>
@@ -92,23 +92,7 @@
     <% end %>
   </div>
 
-  <h3 class="text-xl font-semibold mt-6 mb-4 border-b pb-2">Service Details</h3>
-  <%= f.fields_for :service_detail do |sd| %>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div>
-        <%= sd.label :service_plan, class: "block text-sm font-medium text-gray-700" %>
-        <%= sd.text_field :service_plan, class: "input validator mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
-      </div>
-      <div>
-        <%= sd.label :description, class: "block text-sm font-medium text-gray-700" %>
-        <%= sd.text_field :description, class: "textarea mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
-      </div>
-      <div>
-        <%= sd.label :price, class: "block text-sm font-medium text-gray-700" %>
-        <%= sd.text_field :price, class: "input validator mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
-      </div>
-    </div>
-  <% end %>
+
 
  <!-- Requested At & Confirm -->
   <div class="flex flex-col md:flex-row md:items-center gap-6 mt-6">

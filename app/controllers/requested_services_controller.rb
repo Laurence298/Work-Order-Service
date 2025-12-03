@@ -3,7 +3,7 @@ class RequestedServicesController < ApplicationController
     before_action :redirect_if_no_company
 
   def index
-    @requested_services = current_user.company.requested_services.all.includes(:customer, :service, :service_detail)
+    @requested_services = current_user.company.requested_services.all.includes(:customer, :service)
     @tab = params[:tab] || "all"
 
     if @tab == "confirmed"
@@ -22,7 +22,7 @@ class RequestedServicesController < ApplicationController
       province: current_user.company.province,
       country: current_user.company.country
     )
-    @requested_service.build_service_detail
+
   end
 
   def service_tiers
@@ -46,9 +46,7 @@ class RequestedServicesController < ApplicationController
   end
 
   def update
-    if @requested_service.service_detail
-    @requested_service.service_detail.service_id ||= @requested_service.service_id
-    end
+
 
     if @requested_service.update(requested_service_params)
       redirect_to requested_services_path
@@ -71,9 +69,7 @@ class RequestedServicesController < ApplicationController
     # If service_detail is built but empty, we might want to discard it?
     # The form sends service_detail_attributes.
     
-    if @requested_service.service_detail
-       @requested_service.service_detail.service_id = @requested_service.service.id
-    end
+
 
 
     if @requested_service.save
@@ -98,7 +94,7 @@ class RequestedServicesController < ApplicationController
         :id, :first_name, :last_name, :email, :phone_number,
         address_attributes: [ :street, :city, :province, :postal_code, :country ]
       ],
-      service_detail_attributes: [ :id, :service_plan, :description, :price  ]
+
     )
   end
   def complete_task

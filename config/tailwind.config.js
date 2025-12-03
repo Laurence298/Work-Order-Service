@@ -8,6 +8,17 @@ module.exports = {
         './app/views/**/*.{erb,haml,html,slim}',
         './app/components/**/*.{erb,haml,html,slim}',
     ],
+    safelist: [
+        'bg-base-200',
+        'bg-primary',
+        'bg-secondary',
+        'bg-accent',
+        'bg-neutral',
+        'bg-info',
+        'bg-success',
+        'bg-warning',
+        'bg-error',
+    ],
     theme: {
         extend: {
             fontFamily: {
@@ -22,6 +33,6 @@ module.exports = {
         require('./app/assets/tailwind/daisyui.js'),
     ],
     daisyui: {
-        themes: ["light", "dark", "corporate", "emerald"],
+        themes: true,
     },
 }
