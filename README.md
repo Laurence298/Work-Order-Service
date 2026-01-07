@@ -1,14 +1,16 @@
 # Work Order Service
 
-A multi-tenant Field Service Management (FSM) platform for managing service requests, employees, and customers.
+A multi-tenant Field Service Management (FSM) platform prototype designed to evaluate custom software solutions for small businesses.
 
-##  Project Overview
+## 📋 Project Context & Overview
 
-This application was originally built to streamline operations for a landscaping business, helping them transition from manual tracking to a digital system. It serves as a comprehensive tool for any service-based company that needs to manage:
+**This project was developed as a technical feasibility study for a local landscaping company.**
 
-*   **Service Catalogs**: Defining services with multiple pricing tiers (e.g., Bronze/Silver/Gold landscaping packages).
-*   **Workforce Scheduling**: Assigning crews to specific jobs and tracking their availability.
-*   **Customer Requests**: Managing the lifecycle of a work order from initial request to final completion.
+The primary goal was to determine if building a custom Work Order Management application was a viable alternative to off-the-shelf software. This prototype allowed stakeholders to visualize how a bespoke system could handle their specific operational needs, such as:
+
+* **Custom Service Catalogs**: Defining complex service structures with multiple pricing tiers (e.g., Bronze/Silver/Gold landscaping packages).
+* **Feasibility Testing**: Assessing the complexity of migrating from manual tracking to a digital workflow.
+* **Business Logic Validation**: Proving that a custom tool could better manage crew scheduling and customer lifecycles than generic FSM tools.
 
 ## 🚀 Quick Start
 
@@ -18,7 +20,6 @@ This application was originally built to streamline operations for a landscaping
    ```bash
    git clone <repository-url>
    cd Work-Order-Service
-   ```
 
 2. **Start the application**
    ```bash
